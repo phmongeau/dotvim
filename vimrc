@@ -1,1 +1,1 @@
-/Users/philippemongeau/Castle/home/.vimrc
+/Users/philippemongeau/.vimrc
