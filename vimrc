@@ -4,6 +4,8 @@ call pathogen#helptags()
 
 ":filetype plugin indent on
 
+set guioptions-=T
+set laststatus=2
 "tabs
 set tabstop=4
 set shiftwidth=4
@@ -17,10 +19,9 @@ set showmode
 set showcmd
 set hidden
 set cursorline
-"set backspace=indent,eol,start
 
-"auto indentation
-":set smartindent
+set switchbuf=useopen
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ wc:%{WordCount()} 
 
 "search options
 set ignorecase
@@ -37,10 +38,17 @@ set textwidth=79
 set formatoptions=qrn1
 set linebreak
 
+map j gj
+map k gk
+
+" Reselect visual block after adjusting indentation
+vnoremap < <gv
+vnoremap > >gv
+
+
 "split options
 set splitright
 set splitbelow
-
 
 "color scheme
 :colo wombat
@@ -57,10 +65,12 @@ filetype plugin on
 left g:pydiction_location = '~/.vim/bundle/Pydiction/after/pydiction/complete-dict'
 let g:pydiction_menu_height = 15
 
-
 "autocomplete stuff
 :filetype plugin indent on
 :set ofu=syntaxcomplete#Complete
+
+"neocomplecache
+let g:neocomplcache_enable_at_startup = 1
 
 "line number
 :set nu
@@ -127,8 +137,37 @@ map <Leader><S-p> "+P
 "jump to definition
 map <Leader>jd <C-]>
 
+nnoremap <leader>/ :noh<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""	Functions 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+nnoremap <silent> <Leader><Space> :call <SID>StripTrailingWhitespaces()<CR>
+
+function! WordCount()
+  let lnum = 1
+  let n = 0
+  while lnum <= line('$')
+    let n = n + len(split(getline(lnum)))
+    let lnum = lnum + 1
+  endwhile
+  return n
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Source vimrc after saving
 if has("autocmd")
-    autocmd bufwritepost .vimrc source $MYVIMRC
+	autocmd! bufwritepost .vimrc source $MYVIMRC
 endif
