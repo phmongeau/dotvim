@@ -21,7 +21,18 @@ set hidden
 set cursorline
 
 set switchbuf=useopen
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ wc:%{WordCount()} 
+"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ wc:%{WordCount()} 
+if has('statusline')
+	"filename
+set statusline=%<%f\ %h%m%r
+	"git branch
+	set statusline+=%{fugitive#statusline()}
+	"current directory
+	set statusline+=\ [%{getcwd()}]
+	"file nav info
+	set statusline+=%=%-14.(Line:\ %l\ of\ %L\ [%p%%]\ -\ Col:\ %c%V%)
+	set statusline+=\ words:%{WordCount()}
+endif
 
 "search options
 set ignorecase
@@ -51,7 +62,8 @@ set splitright
 set splitbelow
 
 "color scheme
-:colo wombat
+":colo wombat
+colo molokai
 ":colo vividchalk
 
 "file types
@@ -59,6 +71,7 @@ set splitbelow
 :au BufNewFile,BufRead *.haml setfiletype haml
 :au BufNewFile,BufRead *.sass setfiletype sass
 :au BufNewFile,BufRead *.mustache setfiletype mustache
+:au BufReadCmd *.epub call zip#Browse(expand(""))
 
 "pydiction
 filetype plugin on
@@ -109,7 +122,7 @@ nnoremap <leader>q gqip
 "spliting window
 nnoremap <leader>w <C-w>v<V-w>l
 "NERDTree
-nnoremap <leader>n :NERDTree<cr>
+nnoremap <leader>n :NERDTree %<cr>
 
 "align with Tabular
 if exists(":Tabularize")
@@ -123,7 +136,7 @@ if exists(":Tabularize")
 endif
 
 "align columns
-nmap <Leader>c :%!column -t<CR>
+nmap <Leader>al :%!column -t<CR>
 
 "indentation
 vmap <A-Tab> >gv
