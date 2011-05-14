@@ -14,6 +14,7 @@ set noexpandtab
 set smartindent
 
 set encoding=utf-8
+set fileencoding=utf-8
 set scrolloff=3
 set showmode
 set showcmd
@@ -21,7 +22,7 @@ set hidden
 set cursorline
 
 set switchbuf=useopen
-"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ wc:%{WordCount()} 
+
 if has('statusline')
 	"filename
 set statusline=%<%f\ %h%m%r
@@ -41,13 +42,28 @@ set incsearch
 set showmatch
 set hlsearch
 "clear search
-nnoremap <leader><space> :noh<cr>
 
 "wrap options
 set wrap
 set textwidth=79
-set formatoptions=qrn1
+set formatoptions=tqrn1
 set linebreak
+
+"-----Zen Coding-------"
+"let g:user_zen_leader_key = '<c-e>'
+imap <C-e> <C-y>
+nmap <C-e> <C-y>
+vmap <C-e> <C-y>
+imap <C-e><C-e> <C-e>,
+nmap <C-e><C-e> <C-e>,
+vmap <C-e><C-e> <C-e>,
+
+"------------------------
+" PYTHON STUFF
+"------------------------
+" folding
+set foldmethod=indent
+set foldlevel=99
 
 map j gj
 map k gk
@@ -63,15 +79,25 @@ set splitbelow
 
 "color scheme
 ":colo wombat
-colo molokai
+"colo molokai
 ":colo vividchalk
+colo solarized
+syntax enable
+if has('gui_running')
+	set background=light
+else
+set background=dark
+endif
 
 "file types
-:au BufNewFile,BufRead *.as set filetype=actionscript
-:au BufNewFile,BufRead *.haml setfiletype haml
-:au BufNewFile,BufRead *.sass setfiletype sass
-:au BufNewFile,BufRead *.mustache setfiletype mustache
-:au BufReadCmd *.epub call zip#Browse(expand(""))
+au BufNewFile,BufRead *.as set filetype=actionscript
+au BufNewFile,BufRead *.haml setfiletype haml
+au BufNewFile,BufRead *.sass setfiletype sass
+au BufNewFile,BufRead *.mustache setfiletype mustache
+au BufReadCmd *.epub call zip#Browse(expand(""))
+
+"auto cd
+"au BufEnter * cd %:p:h
 
 "pydiction
 filetype plugin on
@@ -115,9 +141,9 @@ let mapleader=","
 nmap <leader>v :tabe $MYVIMRC<cr>
 
 "set formater
-set formatprg=par\ -w50
+set formatprg=par\ -w65e
 "format
-nnoremap <leader>q gqip
+nnoremap <leader>q gggqG
 
 "spliting window
 nnoremap <leader>w <C-w>v<V-w>l
@@ -152,8 +178,15 @@ map <Leader>jd <C-]>
 
 nnoremap <leader>/ :noh<cr>
 
+
+"text bubling
+nmap <D-S-Up> [e
+nmap <D-S-Down> ]e
+vmap <D-S-Up> [egv
+vmap <D-S-Down> ]egv
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""	Functions 
+""""	Functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
