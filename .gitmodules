@@ -48,7 +48,7 @@
 	ignore = dirty
 [submodule "bundle/taglist"]
 	path = bundle/taglist
-	url = https://github.com/vim-scripts/taglist.vim.git
+	url = https://github.com/mexpolk/vim-taglist.git
 	ignore = dirty
 [submodule "bundle/solarized"]
 	path = bundle/solarized
@@ -62,3 +62,12 @@
 	path = bundle/zencoding
 	url = https://github.com/mattn/zencoding-vim.git
 	ignore = dirty
+[submodule "bundle/unimpaired"]
+	path = bundle/unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/outliner"]
+	path = bundle/outliner
+	url = https://github.com/sophacles/vim-outliner.git
+[submodule "bundle/slime"]
+	path = bundle/slime
+	url = https://github.com/jpalardy/vim-slime.git

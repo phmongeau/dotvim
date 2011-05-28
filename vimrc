@@ -2,7 +2,9 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-":filetype plugin indent on
+:filetype plugin indent on
+"---- Line Numbering ---- 
+:set nu
 
 set guioptions-=T
 set laststatus=2
@@ -23,6 +25,9 @@ set cursorline
 
 set switchbuf=useopen
 
+"Font
+set guifont=Menlo:h11
+
 if has('statusline')
 	"filename
 set statusline=%<%f\ %h%m%r
@@ -32,6 +37,7 @@ set statusline=%<%f\ %h%m%r
 	set statusline+=\ [%{getcwd()}]
 	"file nav info
 	set statusline+=%=%-14.(Line:\ %l\ of\ %L\ [%p%%]\ -\ Col:\ %c%V%)
+	"word count
 	set statusline+=\ words:%{WordCount()}
 endif
 
@@ -41,11 +47,10 @@ set smartcase
 set incsearch
 set showmatch
 set hlsearch
-"clear search
 
 "wrap options
 set wrap
-set textwidth=79
+"set textwidth=79
 set formatoptions=tqrn1
 set linebreak
 
@@ -59,12 +64,14 @@ nmap <C-e><C-e> <C-e>,
 vmap <C-e><C-e> <C-e>,
 
 "------------------------
-" PYTHON STUFF
+" Folding Settings
 "------------------------
-" folding
 set foldmethod=indent
 set foldlevel=99
 
+nnoremap <Leader>f za
+
+" --- Better navigation --- 
 map j gj
 map k gk
 
@@ -73,14 +80,11 @@ vnoremap < <gv
 vnoremap > >gv
 
 
-"split options
+" ---- Split Options ------- 
 set splitright
 set splitbelow
 
-"color scheme
-":colo wombat
-"colo molokai
-":colo vividchalk
+" ------ Color Scheme -------
 colo solarized
 syntax enable
 if has('gui_running')
@@ -89,30 +93,34 @@ else
 set background=dark
 endif
 
-"file types
+" ---- File Type Actions ----
 au BufNewFile,BufRead *.as set filetype=actionscript
 au BufNewFile,BufRead *.haml setfiletype haml
 au BufNewFile,BufRead *.sass setfiletype sass
 au BufNewFile,BufRead *.mustache setfiletype mustache
 au BufReadCmd *.epub call zip#Browse(expand(""))
 
-"auto cd
+"----- Remove fugitive buffers ----
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+" ---- auto cd ---- 
 "au BufEnter * cd %:p:h
 
-"pydiction
+
+" --- ctags ---
+set tags=tags;/
+nnoremap gd <C-]>
+
+" ----- Pydiction ----- 
 filetype plugin on
 left g:pydiction_location = '~/.vim/bundle/Pydiction/after/pydiction/complete-dict'
 let g:pydiction_menu_height = 15
 
-"autocomplete stuff
-:filetype plugin indent on
+" ------ Autocomplete Settings ------ 
 :set ofu=syntaxcomplete#Complete
 
-"neocomplecache
+"------ Neocomplecache -------
 let g:neocomplcache_enable_at_startup = 1
-
-"line number
-:set nu
 
 " bind ctrl-l to hashrocket (=>")
 imap <C-l> <Space>=><Space>"
@@ -132,23 +140,27 @@ map <silent><C-S-Tab> :tabprevious<CR>
 inoremap kj <Esc>
 
 "Command-T settings:
-let g:CommandTAcceptSelectionTabMap='<CR>'
-let g:CommandTAcceptSelectionMap='<C-CR>'
-"set leader
+let g:CommandTAcceptSelectionTabMap='<C-CR>'
+let g:CommandTAcceptSelectionMap='<CR>'
+
+" ----- Map Leader ----
 let mapleader=","
 
 "quickly edit vimrc
 nmap <leader>v :tabe $MYVIMRC<cr>
 
-"set formater
-set formatprg=par\ -w65e
+" --- Set Formater ----
+	"set formatprg=fmt\ -w65
+	"set equalprg=par\ -w65q
+set formatprg=format
 "format
 nnoremap <leader>q gggqG
+
 
 "spliting window
 nnoremap <leader>w <C-w>v<V-w>l
 "NERDTree
-nnoremap <leader>n :NERDTree %<cr>
+nnoremap <leader>n :NERDTreeToggle %<cr>
 
 "align with Tabular
 if exists(":Tabularize")
@@ -173,8 +185,6 @@ map <Leader>y "+y
 map <Leader>p "+p
 map <Leader><S-p> "+P
 
-"jump to definition
-map <Leader>jd <C-]>
 
 nnoremap <leader>/ :noh<cr>
 
@@ -184,6 +194,16 @@ nmap <D-S-Up> [e
 nmap <D-S-Down> ]e
 vmap <D-S-Up> [egv
 vmap <D-S-Down> ]egv
+
+" ------- Jekyll -------
+let g:jekyll_path = "~/Sites/phmongeau.github.com"
+let g:jekyll_post_suffix = "textile"
+let g:jekyll_post_published = "false"
+"let g:jekyll_post_created = "2011-05-24 10:00:00 -05:00"
+let g:jekyll_post_date = "true"
+let g:jekyll_post_timezone = "-5:00"
+
+map <Leader>jn :JekyllPost<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"	Functions
