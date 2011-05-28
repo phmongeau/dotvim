@@ -71,3 +71,6 @@
 [submodule "bundle/slime"]
 	path = bundle/slime
 	url = https://github.com/jpalardy/vim-slime.git
+[submodule "bundle/jekyll"]
+	path = bundle/jekyll
+	url = git@github.com:phmongeau/jekyll.vim.git
