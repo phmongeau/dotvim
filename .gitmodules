@@ -65,12 +65,16 @@
 [submodule "bundle/unimpaired"]
 	path = bundle/unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+	ignore = dirty
 [submodule "bundle/outliner"]
 	path = bundle/outliner
 	url = https://github.com/sophacles/vim-outliner.git
+	ignore = dirty
 [submodule "bundle/slime"]
 	path = bundle/slime
 	url = https://github.com/jpalardy/vim-slime.git
+	ignore = dirty
 [submodule "bundle/jekyll"]
 	path = bundle/jekyll
 	url = git@github.com:phmongeau/jekyll.vim.git
+	ignore = dirty

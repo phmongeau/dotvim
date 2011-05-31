@@ -24,6 +24,7 @@ set hidden
 set cursorline
 
 set switchbuf=useopen
+set autochdir
 
 "Font
 set guifont=Menlo:h11
@@ -85,6 +86,7 @@ set splitright
 set splitbelow
 
 " ------ Color Scheme -------
+let g:solarized_diffmode="high"
 colo solarized
 syntax enable
 if has('gui_running')
