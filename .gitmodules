@@ -10,10 +10,6 @@
 	path = bundle/Tabular
 	url = https://github.com/godlygeek/tabular.git
 	ignore = dirty
-[submodule "bundle/Pydiction"]
-	path = bundle/Pydiction
-	url = https://github.com/vim-scripts/Pydiction.git
-	ignore = dirty
 [submodule "bundle/fugitive"]
 	path = bundle/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
@@ -46,17 +42,9 @@
 	path = bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
 	ignore = dirty
-[submodule "bundle/taglist"]
-	path = bundle/taglist
-	url = https://github.com/mexpolk/vim-taglist.git
-	ignore = dirty
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
-	ignore = dirty
-[submodule "bundle/hammer"]
-	path = bundle/hammer
-	url = https://github.com/robgleeson/hammer.vim.git
 	ignore = dirty
 [submodule "bundle/zencoding"]
 	path = bundle/zencoding
@@ -85,4 +73,16 @@
 [submodule "bundle/vim-addon-mw-utils"]
 	path = vim-addon-mw-utils
 	url = https://github.com/MarcWeber/vim-addon-mw-utils.git
+	ignore = dirty
+[submodule "bundle/NrrwRgn"]
+	path = bundle/NrrwRgn
+	url = https://github.com/chrisbra/NrrwRgn.git
+	ignore = dirty
+[submodule "bundle/orgmode"]
+	path = bundle/orgmode
+	url = https://github.com/jceb/vim-orgmode.git
+	ignore = dirty
+[submodule "bundle/snipmate-snippets"]
+	path = bundle/snipmate-snippets
+	url = https://github.com/honza/snipmate-snippets.git
 	ignore = dirty

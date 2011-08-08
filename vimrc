@@ -24,7 +24,7 @@ set hidden
 set cursorline
 
 set switchbuf=useopen
-set autochdir
+"set autochdir
 
 "Font
 set guifont=Menlo:h11
