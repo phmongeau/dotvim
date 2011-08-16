@@ -145,6 +145,9 @@ inoremap kj <Esc>
 let g:CommandTAcceptSelectionTabMap='<C-CR>'
 let g:CommandTAcceptSelectionMap='<CR>'
 
+"Org-mode
+let g:org_todo_keywords = [['TODO(t)', 'NEXT(n)', 'STARTED(s)', 'WAITING(w)', '|', 'DONE(d)', 'CANCELED(c)']]
+let g:org_todo_keyword_faces = [['STARTED', [':foreground darkyellow', ':background NONE', ':decoration bold']], ['CANCELED', [':foreground grey', ':background NONE', ':decoration: bold']]]
 " ----- Map Leader ----
 let mapleader=","
 
