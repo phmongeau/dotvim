@@ -111,7 +111,7 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " --- ctags ---
 set tags=tags;/
-nnoremap gd <C-]>
+nnoremap gt <C-]>
 
 " ----- Pydiction ----- 
 filetype plugin on

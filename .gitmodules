@@ -86,3 +86,9 @@
 	path = bundle/snipmate-snippets
 	url = https://github.com/honza/snipmate-snippets.git
 	ignore = dirty
+[submodule "bundle/delimitMate"]
+	path = bundle/delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
+[submodule "bundle/tagbar"]
+	path = bundle/tagbar
+	url = https://github.com/majutsushi/tagbar.git
