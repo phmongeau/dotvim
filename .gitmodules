@@ -1,6 +1,6 @@
 [submodule "bundle/snipmate"]
 	path = bundle/snipmate
-	url = https://github.com/msanders/snipmate.vim.git
+	url = https://github.com/garbas/vim-snipmate.git
 	ignore = dirty
 [submodule "bundle/nerdtree"]
 	path = bundle/nerdtree
@@ -28,7 +28,7 @@
 	ignore = dirty
 [submodule "bundle/speeddating"]
 	path = bundle/speeddating
-	url = https://github.com/tpope/vim-speeddating.git
+	url = https://github.com/phmongeau/vim-speeddating.git
 	ignore = dirty
 [submodule "bundle/markdown"]
 	path = bundle/markdown
@@ -60,7 +60,7 @@
 	ignore = dirty
 [submodule "bundle/slime"]
 	path = bundle/slime
-	url = https://github.com/jpalardy/vim-slime.git
+	url = https://github.com/phmongeau/vim-slime.git
 	ignore = dirty
 [submodule "bundle/jekyll"]
 	path = bundle/jekyll
