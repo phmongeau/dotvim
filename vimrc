@@ -112,6 +112,8 @@ autocmd BufReadPost fugitive://* set bufhidden=delete
 " --- ctags ---
 set tags=tags;/
 nnoremap gt <C-]>
+nnoremap ggt g<C-]>
+"nnoremap tn :tn<CR>
 
 " ----- Pydiction ----- 
 filetype plugin on
@@ -148,6 +150,7 @@ let g:CommandTAcceptSelectionMap='<CR>'
 "Org-mode
 let g:org_todo_keywords = [['TODO(t)', 'NEXT(n)', 'STARTED(s)', 'WAITING(w)', '|', 'DONE(d)', 'CANCELED(c)']]
 let g:org_todo_keyword_faces = [['STARTED', [':foreground darkyellow', ':background NONE', ':decoration bold']], ['CANCELED', [':foreground grey', ':background NONE', ':decoration: bold']]]
+nnoremap <Leader>ac :split ~/Documents/todo/todo.org<CR>
 
 "Snipmate settings
 let g:snips_author='Philippe Mongeau'
