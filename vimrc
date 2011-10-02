@@ -2,7 +2,7 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-:filetype plugin indent on
+filetype plugin indent on
 "---- Line Numbering ---- 
 :set nu
 
@@ -31,7 +31,7 @@ set guifont=Menlo:h11
 
 if has('statusline')
 	"filename
-set statusline=%<%f\ %h%m%r
+	set statusline=%<%f\ %h%m%r
 	"git branch
 	set statusline+=%{fugitive#statusline()}
 	"current directory
@@ -70,8 +70,6 @@ vmap <C-e><C-e> <C-e>,
 set foldmethod=indent
 set foldlevel=99
 
-nnoremap <Leader>f za
-
 " --- Better navigation --- 
 map j gj
 map k gk
@@ -105,20 +103,11 @@ au BufReadCmd *.epub call zip#Browse(expand(""))
 "----- Remove fugitive buffers ----
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-" ---- auto cd ---- 
-"au BufEnter * cd %:p:h
-
 
 " --- ctags ---
 set tags=tags;/
 nnoremap gt <C-]>
 nnoremap ggt g<C-]>
-"nnoremap tn :tn<CR>
-
-" ----- Pydiction ----- 
-filetype plugin on
-left g:pydiction_location = '~/.vim/bundle/Pydiction/after/pydiction/complete-dict'
-let g:pydiction_menu_height = 15
 
 " ------ Autocomplete Settings ------ 
 :set ofu=syntaxcomplete#Complete
@@ -126,30 +115,18 @@ let g:pydiction_menu_height = 15
 "------ Neocomplecache -------
 let g:neocomplcache_enable_at_startup = 1
 
-" bind ctrl-l to hashrocket (=>")
-imap <C-l> <Space>=><Space>"
-
-"bind ctrl-k to convert word to symbol (:word)
-imap <C-k> <C-o>b:<Esc>Ea
-nmap <C-k> lbi:<Esc>E
-
-"bind ctrl-j to jump to end of line in insert mode.
-imap <C-j> <End>
-
 "tab switching with alt-arrows
 map <silent><C-Tab> :tabnext<CR>
 map <silent><C-S-Tab> :tabprevious<CR>
 
-"escape from insert mode
-inoremap kj <Esc>
-
 "Command-T settings:
 let g:CommandTAcceptSelectionTabMap='<C-CR>'
-let g:CommandTAcceptSelectionMap='<CR>'
 
 "Org-mode
 let g:org_todo_keywords = [['TODO(t)', 'NEXT(n)', 'STARTED(s)', 'WAITING(w)', '|', 'DONE(d)', 'CANCELED(c)']]
 let g:org_todo_keyword_faces = [['STARTED', [':foreground darkyellow', ':background NONE', ':decoration bold']], ['CANCELED', [':foreground grey', ':background NONE', ':decoration: bold']]]
+
+let g:org_agenda_files = ['~/Documents/todo/todo.org']
 nnoremap <Leader>ac :split ~/Documents/todo/todo.org<CR>
 
 "Snipmate settings
@@ -159,8 +136,8 @@ let g:snips_trigger_key="<c-cr>"
 " ----- Map Leader ----
 let mapleader=","
 
-"quickly edit vimrc
-nmap <leader>v :tabe $MYVIMRC<cr>
+"Edit vimrc
+nmap <leader>v :vsplit $MYVIMRC<cr>
 
 " --- Set Formater ----
 	"set formatprg=fmt\ -w65
@@ -169,37 +146,27 @@ set formatprg=format
 "format
 nnoremap <leader>q gggqG
 
-
 "spliting window
-nnoremap <leader>w <C-w>v<V-w>l
+nnoremap <leader>w :vsplit<CR>
+
 "NERDTree
 nnoremap <leader>n :NERDTreeToggle %<cr>
-
-"align with Tabular
-if exists(":Tabularize")
-	nmap <Leader>a= :Tabularize /=<CR>
-	vmap <Leader>a= :Tabularize /=<CR>
-	nmap <Leader>a: :Tabularize /:<CR>
-	vmap <Leader>a: :Tabularize /:<CR>
-	nmap <Leader>al :Tabularize /
-	vmap <Leader>al :Tabularize /
-
-endif
 
 "align columns
 nmap <Leader>al :%!column -t<CR>
 
-"indentation
-vmap <A-Tab> >gv
-vmap <A-S-Tab> <gv
-
 "system copy paste
-map <Leader>y "+y
+map <Leader>y "yy
 map <Leader>p "+p
 map <Leader><S-p> "+P
 
 
+" remove highlight
 nnoremap <leader>/ :noh<cr>
+
+
+"Ack
+nnoremap <Leader>ak :Ack 
 
 
 "text bubling
