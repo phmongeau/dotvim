@@ -7,6 +7,7 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
+
 " }}}
 
 " --------Basic options----------------{{{
@@ -46,10 +47,10 @@ set linebreak
 if has('statusline')
 	"filename
 	set statusline=%<%f\ %h%m%r
+	"current directory
+	set statusline+=\ [%.30{getcwd()}]
 	"git branch
 	set statusline+=%{fugitive#statusline()}
-	"current directory
-	set statusline+=\ [%{getcwd()}]
 	"file nav info
 	set statusline+=%=%-14.(Line:\ %l\ of\ %L\ [%p%%]\ -\ Col:\ %c%V%)
 	"word count
@@ -69,8 +70,16 @@ vmap <C-e><C-e> <C-e>,
 
 "---------Folding Settings-------------{{{
 "set foldmethod=indent
-set foldmethod=marker
-set foldlevelstart=0
+"set foldmethod=marker
+set foldmethod=manual
+"set foldlevelstart=99
+
+"filtype specific:
+augroup folds
+	au!
+	au FileType vim setlocal foldmethod=marker foldlevel=0
+	au FileType python setlocal foldmethod=indent foldlevel=99
+augroup END
 "}}}
 
 " --------Better navigation------------{{{
@@ -81,9 +90,10 @@ map H ^
 map L $
 
 " --- ctags ---
-set tags=tags;/
+set tags=tags;$HOME
 nnoremap gt <C-]>
-nnoremap ggt g<C-]>
+"nnoremap ggt g<C-]>
+nnoremap gwt <C-w><C-]>
 
 "text bubling
 nmap <D-S-Up> [e
@@ -111,24 +121,27 @@ syntax enable
 if has('gui_running')
 	set background=light
 else
-set background=dark
+	set background=dark
 endif
 "}}}
 
 "----File Type Actions-----------------{{{
-"as3
-au BufNewFile,BufRead *.as set filetype=actionscript
-"haml
-au BufNewFile,BufRead *.haml setfiletype haml
-"sass
-au BufNewFile,BufRead *.sass setfiletype sass
-"mustache
-au BufNewFile,BufRead *.mustache setfiletype mustache
-"epub
-au BufReadCmd *.epub call zip#Browse(expand(""))
-
-"Remove fugitive buffers
-autocmd BufReadPost fugitive://* set bufhidden=delete
+augroup ftypes
+	"clear the group
+	autocmd!
+	"as3
+	au BufNewFile,BufRead *.as set filetype=actionscript
+	"haml
+	au BufNewFile,BufRead *.haml setfiletype haml
+	"sass
+	au BufNewFile,BufRead *.sass setfiletype sass
+	"mustache
+	au BufNewFile,BufRead *.mustache setfiletype mustache
+	"epub
+	au BufReadCmd *.epub call zip#Browse(expand(""))
+	"Remove fugitive buffers
+	autocmd BufReadPost fugitive://* set bufhidden=delete
+augroup END
 "}}}
 
 "------Autocomplete Settings-----------{{{
@@ -148,7 +161,7 @@ let g:org_todo_keywords = [['TODO(t)', 'NEXT(n)', 'STARTED(s)', 'WAITING(w)', '|
 let g:org_todo_keyword_faces = [['STARTED', [':foreground darkyellow', ':background NONE', ':decoration bold']], ['CANCELED', [':foreground grey', ':background NONE', ':decoration: bold']]]
 
 let g:org_agenda_files = ['~/Documents/todo/todo.org']
-nnoremap <Leader>ac :split ~/Documents/todo/todo.org<CR>
+"nnoremap <Leader>ac :split ~/Documents/todo/todo.org<CR>
 "}}}
 
 "Snipmate----------{{{
@@ -165,7 +178,8 @@ let maplocalleader = "è"
 
 "-----------Custom mappings------------{{{
 "Edit vimrc
-nmap <leader>v :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>et :vsplit ~/Documents/todo/todo.org<cr>
 
 " ---Set Formater----{{{
 	"set formatprg=fmt\ -w65
@@ -176,18 +190,19 @@ nnoremap <leader>q gggqG
 "}}}
 
 "spliting window
-nnoremap <leader>w :vsplit<CR>
+nnoremap <leader>v :vsplit<CR>
+nnoremap <leader>h :split<CR>
 
 "NERDTree
 nnoremap <leader>n :NERDTreeToggle %<cr>
 
 "align columns
-nmap <Leader>al :%!column -t<CR>
+nnoremap <Leader>al :%!column -t<CR>
 
 "system copy paste
-map <Leader>y "yy
-map <Leader>p "+p
-map <Leader><S-p> "+P
+nnoremap <Leader>y "yy
+nnoremap <Leader>p "+p
+nnoremap <Leader><S-p> "+P
 
 " remove highlight
 nnoremap <leader>/ :noh<cr>
@@ -202,6 +217,18 @@ cnoreabbrev W w
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
 
+"Uppercase current word
+nnoremap <D-u> viw<S-u>e
+inoremap <D-u> <esc>viw<S-u>ea
+
+"Abbreviations
+iabbrev _me Philippe Mongeau
+iabbrev ssig ---<cr>    Philippe Mongeau
+iabbrev blg http://phmongeau.github.com
+iabbrev mblg [ph.mongeau](http://phmongeau.github.com)
+iabbrev tblg "ph.mongeau":http://phmongeau.github.com
+
+vnoremap v <esc><S-v>
 " ------- Jekyll ------- {{{{
 let g:jekyll_path = "~/Sites/phmongeau.github.com"
 let g:jekyll_post_suffix = "textile"
@@ -242,6 +269,9 @@ endfunction
 
 "-----Source vimrc after saving--------{{{
 if has("autocmd")
-	autocmd! bufwritepost .vimrc source $MYVIMRC
+	augroup vimrc
+		autocmd! bufwritepost .vimrc source $MYVIMRC
+	augroup END
 endif
 "}}}
+
