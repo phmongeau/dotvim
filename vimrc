@@ -30,6 +30,7 @@ set noexpandtab
 set smartindent
 set switchbuf=useopen
 set guifont=Menlo:h11
+set listchars=tab:▸\ ,eol:¬
 set wildmenu
 "search options
 set ignorecase
@@ -152,10 +153,6 @@ let g:neocomplcache_enable_at_startup = 1
 "}}}
 
 "------Various plugins settings--------{{{
-"Command-T---------{{{
-let g:CommandTAcceptSelectionTabMap='<C-CR>'
-"}}}
-
 "Org-mode ---------{{{
 let g:org_todo_keywords = [['TODO(t)', 'NEXT(n)', 'STARTED(s)', 'WAITING(w)', '|', 'DONE(d)', 'CANCELED(c)']]
 let g:org_todo_keyword_faces = [['STARTED', [':foreground darkyellow', ':background NONE', ':decoration bold']], ['CANCELED', [':foreground grey', ':background NONE', ':decoration: bold']]]
@@ -169,6 +166,11 @@ let g:snips_author='Philippe Mongeau'
 let g:snips_trigger_key="<c-cr>"
 "}}}
 
+"MakeGreen---------{{{
+map <C-t> :w\|:call MakeGreen()<cr>
+"map <C-t> <Plug>MakeGreen
+"}}}
+
 "}}}
 
 " --------------Leader-----------------{{{
@@ -180,6 +182,11 @@ let maplocalleader = "è"
 "Edit vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>et :vsplit ~/Documents/todo/todo.org<cr>
+
+"edit files from same directory
+cnoremap %% <C-r>=expand('%:h').'/'<cr>
+map <leader>ee :edit %%
+
 
 " ---Set Formater----{{{
 	"set formatprg=fmt\ -w65
@@ -208,7 +215,7 @@ nnoremap <Leader><S-p> "+P
 nnoremap <leader>/ :noh<cr>
 
 "Ack
-nnoremap <Leader>ak :Ack 
+nnoremap <Leader>ak :Ack
 
 "write as sudo
 cmap w!! %!sudo tee > /dev/null %
@@ -216,6 +223,7 @@ cmap w!! %!sudo tee > /dev/null %
 cnoreabbrev W w
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
+cnoreabbrev qq bdelete %
 
 "Uppercase current word
 nnoremap <D-u> viw<S-u>e
@@ -227,8 +235,17 @@ iabbrev ssig ---<cr>    Philippe Mongeau
 iabbrev blg http://phmongeau.github.com
 iabbrev mblg [ph.mongeau](http://phmongeau.github.com)
 iabbrev tblg "ph.mongeau":http://phmongeau.github.com
+iabbrev mmail ph.mongeau@gmail.com
 
 vnoremap v <esc><S-v>
+
+"Conque
+let g:ConqueTerm_SendFileKey = '<F4>'
+let g:ConqueTerm_SendVisKey = '<F5>'
+
+"toggle inivsible chars visibility
+nnoremap <leader>l :set list!<CR>
+
 " ------- Jekyll ------- {{{{
 let g:jekyll_path = "~/Sites/phmongeau.github.com"
 let g:jekyll_post_suffix = "textile"

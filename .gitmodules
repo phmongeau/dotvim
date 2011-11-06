@@ -50,10 +50,6 @@
 	path = bundle/unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
 	ignore = dirty
-[submodule "bundle/outliner"]
-	path = bundle/outliner
-	url = https://github.com/sophacles/vim-outliner.git
-	ignore = dirty
 [submodule "bundle/slime"]
 	path = bundle/slime
 	url = https://github.com/phmongeau/vim-slime.git
@@ -82,9 +78,6 @@
 	path = bundle/snipmate-snippets
 	url = https://github.com/honza/snipmate-snippets.git
 	ignore = dirty
-[submodule "bundle/delimitMate"]
-	path = bundle/delimitMate
-	url = https://github.com/Raimondi/delimitMate.git
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
@@ -107,3 +100,15 @@
 [submodule "bundle/markdown"]
 	path = bundle/markdown
 	url = https://github.com/tpope/vim-markdown.git
+[submodule "bundle/conque"]
+	path = bundle/conque
+	url = https://github.com/vim-scripts/Conque-Shell.git
+[submodule "bundle/makegreen"]
+	path = bundle/makegreen
+	url = https://github.com/reinh/vim-makegreen.git
+[submodule "bundle/nosecompiler"]
+	path = bundle/nosecompiler
+	url = https://github.com/lambdalisue/nose.vim.git
+[submodule "bundle/rope"]
+	path = bundle/rope
+	url = https://github.com/sontek/rope-vim.git
