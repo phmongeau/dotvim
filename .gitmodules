@@ -112,3 +112,6 @@
 [submodule "bundle/rope"]
 	path = bundle/rope
 	url = https://github.com/sontek/rope-vim.git
+[submodule "bundle/screen"]
+	path = bundle/screen
+	url = https://github.com/ervandew/screen.git

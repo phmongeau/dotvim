@@ -45,17 +45,18 @@ set linebreak
 "}}}
 
 " --------Status Line------------------{{{
+
 if has('statusline')
 	"filename
-	set statusline=%<%f\ %h%m%r
+	set statusline=[%f%m%r]
 	"current directory
-	set statusline+=\ [%.30{getcwd()}]
+	set statusline+=\ %.30{getcwd()}
 	"git branch
-	set statusline+=%{fugitive#statusline()}
+	set statusline+=%=\ %{fugitive#statusline()}
 	"file nav info
-	set statusline+=%=%-14.(Line:\ %l\ of\ %L\ [%p%%]\ -\ Col:\ %c%V%)
+	set statusline+=\ %<%-14.(Line:\ %l/%L\ -%)
 	"word count
-	set statusline+=\ words:%{WordCount()}
+	set statusline+=\ Words:\ %{WordCount()}
 endif
 "}}}
 
