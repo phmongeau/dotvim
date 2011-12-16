@@ -1,13 +1,39 @@
 ".vimrc
 " Author: Philippe Mongeau
 
-" --------Preamble (Pathogen)----------{{{
+" --------Preamble (Vundle)----------{{{
+set rtp+=~/.vim/bundle/vundle
+call vundle#rc()
 
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+Bundle 'gmarik/vundle'
 
 
+Bundle 'garbas/vim-snipmate'
+Bundle 'godlygeek/tabular'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'wincent/Command-T'
+Bundle 'ervandew/supertab'
+Bundle 'phmongeau/vim-speeddating'
+Bundle 'Shougo/neocomplcache'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'mattn/zencoding-vim'
+Bundle 'phmongeau/vim-slime'
+Bundle 'phmongeau/jekyll.vim'
+Bundle 'tomtom/tlib_vim'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'jceb/vim-orgmode'
+Bundle 'honza/snipmate-snippets'
+Bundle 'sotte/vim-pep8'
+Bundle 'mileszs/ack.vim'
+Bundle 'tpope/vim-haml'
+Bundle 'timcharper/textile.vim'
+Bundle 'juvenn/mustache.vim'
+Bundle 'tpope/vim-markdown'
+Bundle 'vim-scripts/Conque-Shell'
+Bundle 'reinh/vim-makegreen'
+Bundle 'lambdalisue/nose.vim'
 " }}}
 
 " --------Basic options----------------{{{
