@@ -40,7 +40,7 @@ set showmatch
 set hlsearch
 "wrap options
 set wrap
-set formatoptions=tqrn1
+set formatoptions=qrn1
 set linebreak
 "}}}
 
@@ -188,24 +188,24 @@ nnoremap <leader>et :vsplit ~/Documents/todo/todo.org<cr>
 cnoremap %% <C-r>=expand('%:h').'/'<cr>
 map <leader>ee :edit %%
 
+"switch between two last buffers
+nnoremap <leader><leader> <C-^>
+
 
 " ---Set Formater----{{{
 	"set formatprg=fmt\ -w65
-	"set equalprg=par\ -w65q
-set formatprg=format
+	"set formatprg=par\ -w65q
+"set formatprg=format
 "format
 nnoremap <leader>q gggqG
 "}}}
 
 "spliting window
-nnoremap <leader>v :vsplit<CR>
+nmap <leader>v :vsplit %
 nnoremap <leader>h :split<CR>
 
 "NERDTree
 nnoremap <leader>n :NERDTreeToggle %<cr>
-
-"align columns
-nnoremap <Leader>al :%!column -t<CR>
 
 "system copy paste
 nnoremap <Leader>y "yy
@@ -224,6 +224,7 @@ cmap w!! %!sudo tee > /dev/null %
 cnoreabbrev W w
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
+cnoreabbrev Q q
 cnoreabbrev qq bdelete %
 
 "Uppercase current word
@@ -239,6 +240,8 @@ iabbrev tblg "ph.mongeau":http://phmongeau.github.com
 iabbrev mmail ph.mongeau@gmail.com
 
 vnoremap v <esc><S-v>
+
+noremap <F1> <NOP>
 
 "Conque
 let g:ConqueTerm_SendFileKey = '<F4>'
@@ -283,6 +286,10 @@ function! WordCount()
   endwhile
   return n
 endfunction
+
+command! -range=% SoftWrap
+            \ <line2>put _ |
+            \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
 "}}}
 
 "-----Source vimrc after saving--------{{{
@@ -292,4 +299,3 @@ if has("autocmd")
 	augroup END
 endif
 "}}}
-
