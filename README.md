@@ -4,7 +4,5 @@ Installation:
 Symlink:
     ln -s ~/.vim/vimrc ~/.vimrc
 
-Go to ~/.vim and fetch submodules
-    cd ~/.vimr
-    git submodule init
-    git submodule update
+Install bundles
+	:BundleInstall
