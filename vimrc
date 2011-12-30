@@ -34,6 +34,7 @@ Bundle 'tpope/vim-markdown'
 Bundle 'vim-scripts/Conque-Shell'
 Bundle 'reinh/vim-makegreen'
 Bundle 'lambdalisue/nose.vim'
+Bundle 'kchmck/vim-coffee-script'
 " }}}
 
 " --------Basic options----------------{{{
@@ -71,7 +72,6 @@ set linebreak
 "}}}
 
 " --------Status Line------------------{{{
-
 if has('statusline')
 	"filename
 	set statusline=[%f%m%r]
@@ -157,6 +157,8 @@ endif
 augroup ftypes
 	"clear the group
 	autocmd!
+	"Processing
+	au BufNewFile,BufRead *.pde set filetype=java
 	"as3
 	au BufNewFile,BufRead *.as set filetype=actionscript
 	"haml
