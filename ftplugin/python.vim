@@ -8,7 +8,7 @@ setlocal smartindent
 
 nnoremap <buffer> <F3> :!python %<CR>
 
-iabbrev true True
-iabbrev false False
+iabbrev <buffer> true True
+iabbrev <buffer> false False
 
 compiler nose

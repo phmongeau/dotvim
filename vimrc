@@ -1,4 +1,4 @@
-".vimrc
+
 " Author: Philippe Mongeau
 
 " --------Preamble (Vundle)----------{{{
@@ -19,7 +19,6 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'mattn/zencoding-vim'
-Bundle 'phmongeau/vim-slime'
 Bundle 'phmongeau/jekyll.vim'
 Bundle 'tomtom/tlib_vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
@@ -35,6 +34,9 @@ Bundle 'vim-scripts/Conque-Shell'
 Bundle 'reinh/vim-makegreen'
 Bundle 'lambdalisue/nose.vim'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'programble/itchy.vim'
+Bundle 'scrooloose/syntastic'
+
 " }}}
 
 " --------Basic options----------------{{{
@@ -143,6 +145,10 @@ set splitbelow
 "}}}
 
 "------Color Scheme--------------------{{{
+
+" -- Colors:
+set t_Co=256
+
 let g:solarized_diffmode="high"
 colo solarized
 syntax enable
@@ -200,6 +206,10 @@ map <C-t> :w\|:call MakeGreen()<cr>
 "map <C-t> <Plug>MakeGreen
 "}}}
 
+"CommandT----------{{{
+set wildignore+=env/**
+"}}}
+
 "}}}
 
 " --------------Leader-----------------{{{
@@ -219,6 +229,10 @@ map <leader>ee :edit %%
 "switch between two last buffers
 nnoremap <leader><leader> <C-^>
 
+nnoremap ~~ ~l
+nnoremap ~l ~~
+
+
 
 " ---Set Formater----{{{
 	"set formatprg=fmt\ -w65
@@ -232,8 +246,16 @@ nnoremap <leader>q gggqG
 nmap <leader>v :vsplit %
 nnoremap <leader>h :split<CR>
 
-"NERDTree
-nnoremap <leader>n :NERDTreeToggle %<cr>
+"Line numbers
+function! g:ToggleNuMode()
+	if(&relativenumber == 1)
+		set number
+	else
+		set relativenumber
+	endif
+endfunction
+nnoremap <Leader>n :call g:ToggleNuMode()<CR>
+
 
 "system copy paste
 nnoremap <Leader>y "yy
@@ -241,7 +263,8 @@ nnoremap <Leader>p "+p
 nnoremap <Leader><S-p> "+P
 
 " remove highlight
-nnoremap <leader>/ :noh<cr>
+"nnoremap <leader>/ :noh<cr>
+nnoremap <ESC> :nohlsearch<cr><ESC>
 
 "Ack
 nnoremap <Leader>ak :Ack
@@ -249,10 +272,11 @@ nnoremap <Leader>ak :Ack
 "write as sudo
 cmap w!! %!sudo tee > /dev/null %
 
-cnoreabbrev W w
-cnoreabbrev Wq wq
-cnoreabbrev WQ wq
-cnoreabbrev Q q
+command! -bang W w<bang>
+command! -bang Wq wq<bang>
+command! -bang WQ wq<bang>
+command! -bang Q q<bang>
+
 cnoreabbrev qq bdelete %
 
 "Uppercase current word
@@ -314,6 +338,31 @@ function! WordCount()
   endwhile
   return n
 endfunction
+
+function! ExtractVariable()
+	let name = input("Variable name: ")
+	if name == ''
+		return
+	endif
+
+	normal! gv
+	exec "normal c" . name
+	exec "normal! O" . name . " = "
+	normal! $p
+endfunction
+vnoremap <leader>rv :call ExtractVariable()<CR>
+
+function! InlineVariable()
+	normal "ayiw
+	normal 4diw
+	normal "bd$
+	normal dd
+	normal k$
+
+	exec '/\<' . @a . '\>/'
+	exec ':.s/\<' . @a . '\>/' . @b
+endfunction
+nnoremap <leader>ri :call InlineVariable()<CR>
 
 command! -range=% SoftWrap
             \ <line2>put _ |
