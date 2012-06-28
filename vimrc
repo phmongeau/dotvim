@@ -16,7 +16,6 @@ Bundle 'wincent/Command-T'
 Bundle 'ervandew/supertab'
 Bundle 'phmongeau/vim-speeddating'
 Bundle 'Shougo/neocomplcache'
-Bundle 'scrooloose/nerdcommenter'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'mattn/zencoding-vim'
 Bundle 'phmongeau/jekyll.vim'
@@ -30,12 +29,17 @@ Bundle 'tpope/vim-haml'
 Bundle 'timcharper/textile.vim'
 Bundle 'juvenn/mustache.vim'
 Bundle 'tpope/vim-markdown'
-Bundle 'vim-scripts/Conque-Shell'
 Bundle 'reinh/vim-makegreen'
 Bundle 'lambdalisue/nose.vim'
 Bundle 'kchmck/vim-coffee-script'
-Bundle 'programble/itchy.vim'
-Bundle 'scrooloose/syntastic'
+Bundle 'Glench/Vim-Jinja2-Syntax'
+Bundle 'tomtom/tcomment_vim'
+Bundle 'sjl/vitality.vim'
+Bundle 'vim-scripts/VimClojure'
+Bundle 'ervandew/screen'
+Bundle 'benmills/vimux'
+" Bundle 'mikezackles/Bisect'
+" Bundle 'kevinw/pyflakes-vim'
 
 " }}}
 
@@ -59,7 +63,7 @@ set noexpandtab
 set smartindent
 set switchbuf=useopen
 set guifont=Menlo:h11
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬,nbsp:‧
 set wildmenu
 "search options
 set ignorecase
@@ -71,6 +75,10 @@ set hlsearch
 set wrap
 set formatoptions=qrn1
 set linebreak
+"don't blink the cursor
+set guicursor=a:blinkon0
+"enable the mouse
+set mouse=a
 "}}}
 
 " --------Status Line------------------{{{
@@ -148,15 +156,21 @@ set splitbelow
 
 " -- Colors:
 set t_Co=256
-
-let g:solarized_diffmode="high"
-colo solarized
 syntax enable
+
+
+colo desert
+if &t_Co >= 256
+	let g:solarized_diffmode="high"
+	colo solarized
+endif
+
 if has('gui_running')
 	set background=light
 else
 	set background=dark
 endif
+
 "}}}
 
 "----File Type Actions-----------------{{{
@@ -185,9 +199,14 @@ augroup END
 
 "Neocomplecache
 let g:neocomplcache_enable_at_startup = 1
+
+"Screen.vim
+nnoremap <C-c><C-c> :ScreenSend<cr>
+vnoremap <C-c><C-c> :ScreenSend<cr>
 "}}}
 
 "------Various plugins settings--------{{{
+
 "Org-mode ---------{{{
 let g:org_todo_keywords = [['TODO(t)', 'NEXT(n)', 'STARTED(s)', 'WAITING(w)', '|', 'DONE(d)', 'CANCELED(c)']]
 let g:org_todo_keyword_faces = [['STARTED', [':foreground darkyellow', ':background NONE', ':decoration bold']], ['CANCELED', [':foreground grey', ':background NONE', ':decoration: bold']]]
@@ -209,6 +228,18 @@ map <C-t> :w\|:call MakeGreen()<cr>
 "CommandT----------{{{
 set wildignore+=env/**
 "}}}
+
+"TComment----------{{{"
+let g:tcommentMapLeaderOp1="<Leader>c"
+vnoremap <Leader>c :TComment<CR>
+" nnoremap <Leader>c<Space> :TComment<CR>
+nnoremap <Leader>c<Space> :echo "use <Leader>cc instead"<CR>
+"}}}
+
+"TComment----------{{{"
+let g:ScreenImpl='Tmux'
+"}}}
+
 
 "}}}
 
@@ -232,42 +263,29 @@ nnoremap <leader><leader> <C-^>
 nnoremap ~~ ~l
 nnoremap ~l ~~
 
+nnoremap U :redo<CR>
+
+nnoremap <Leader><Tab> wby0o<esc>pVr<space>J
+
 
 
 " ---Set Formater----{{{
-	"set formatprg=fmt\ -w65
-	"set formatprg=par\ -w65q
-"set formatprg=format
-"format
-nnoremap <leader>q gggqG
+"set formatprg=fmt\ -w65
+"set formatprg=par\ -w65q
 "}}}
 
 "spliting window
 nmap <leader>v :vsplit %
-nnoremap <leader>h :split<CR>
+nnoremap <leader>h :split %
 
-"Line numbers
-function! g:ToggleNuMode()
-	if(&relativenumber == 1)
-		set number
-	else
-		set relativenumber
-	endif
-endfunction
-nnoremap <Leader>n :call g:ToggleNuMode()<CR>
+"Toggle (relative, absolute) line numbers
+nnoremap <Leader>n :se <c-r>=&rnu?"":"r"<CR>nu<CR>
 
-
-"system copy paste
-nnoremap <Leader>y "yy
-nnoremap <Leader>p "+p
-nnoremap <Leader><S-p> "+P
+"toggle inivsible chars visibility
+nnoremap <leader>l :set list!<CR>
 
 " remove highlight
-"nnoremap <leader>/ :noh<cr>
-nnoremap <ESC> :nohlsearch<cr><ESC>
-
-"Ack
-nnoremap <Leader>ak :Ack
+nnoremap <C-l> :nohlsearch<CR><C-l>
 
 "write as sudo
 cmap w!! %!sudo tee > /dev/null %
@@ -279,10 +297,6 @@ command! -bang Q q<bang>
 
 cnoreabbrev qq bdelete %
 
-"Uppercase current word
-nnoremap <D-u> viw<S-u>e
-inoremap <D-u> <esc>viw<S-u>ea
-
 "Abbreviations
 iabbrev _me Philippe Mongeau
 iabbrev ssig ---<cr>    Philippe Mongeau
@@ -291,16 +305,9 @@ iabbrev mblg [ph.mongeau](http://phmongeau.github.com)
 iabbrev tblg "ph.mongeau":http://phmongeau.github.com
 iabbrev mmail ph.mongeau@gmail.com
 
-vnoremap v <esc><S-v>
+nnoremap vv <S-v>
 
 noremap <F1> <NOP>
-
-"Conque
-let g:ConqueTerm_SendFileKey = '<F4>'
-let g:ConqueTerm_SendVisKey = '<F5>'
-
-"toggle inivsible chars visibility
-nnoremap <leader>l :set list!<CR>
 
 " ------- Jekyll ------- {{{{
 let g:jekyll_path = "~/Sites/phmongeau.github.com"
