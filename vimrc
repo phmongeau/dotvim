@@ -33,13 +33,12 @@ Bundle 'reinh/vim-makegreen'
 Bundle 'lambdalisue/nose.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'Glench/Vim-Jinja2-Syntax'
-Bundle 'tomtom/tcomment_vim'
+Bundle "tpope/vim-commentary"
 Bundle 'sjl/vitality.vim'
 Bundle 'vim-scripts/VimClojure'
 Bundle 'ervandew/screen'
 Bundle 'benmills/vimux'
-" Bundle 'mikezackles/Bisect'
-" Bundle 'kevinw/pyflakes-vim'
+Bundle 'vim-scripts/pythoncomplete'
 
 " }}}
 
@@ -63,7 +62,7 @@ set noexpandtab
 set smartindent
 set switchbuf=useopen
 set guifont=Menlo:h11
-set listchars=tab:▸\ ,eol:¬,nbsp:‧
+set listchars=tab:▸\ ,eol:¬,nbsp:‧,trail:‧
 set wildmenu
 "search options
 set ignorecase
@@ -171,6 +170,10 @@ else
 	set background=dark
 endif
 
+"column at 80 chars
+if exists('+colorcolumn') | set colorcolumn=80 | endif
+
+
 "}}}
 
 "----File Type Actions-----------------{{{
@@ -195,8 +198,6 @@ augroup END
 "}}}
 
 "------Autocomplete Settings-----------{{{
-:set ofu=syntaxcomplete#Complete
-
 "Neocomplecache
 let g:neocomplcache_enable_at_startup = 1
 
@@ -217,7 +218,7 @@ let g:org_agenda_files = ['~/Documents/todo/todo.org']
 
 "Snipmate----------{{{
 let g:snips_author='Philippe Mongeau'
-let g:snips_trigger_key="<c-cr>"
+" let g:snips_trigger_key="<c-cr>"
 "}}}
 
 "MakeGreen---------{{{
@@ -227,16 +228,16 @@ map <C-t> :w\|:call MakeGreen()<cr>
 
 "CommandT----------{{{
 set wildignore+=env/**
+let g:CommandTCancelMap=['<ESC>', '<C-c>']
 "}}}
 
 "TComment----------{{{"
 let g:tcommentMapLeaderOp1="<Leader>c"
 vnoremap <Leader>c :TComment<CR>
-" nnoremap <Leader>c<Space> :TComment<CR>
 nnoremap <Leader>c<Space> :echo "use <Leader>cc instead"<CR>
 "}}}
 
-"TComment----------{{{"
+"Screen------------{{{"
 let g:ScreenImpl='Tmux'
 "}}}
 
@@ -260,12 +261,14 @@ map <leader>ee :edit %%
 "switch between two last buffers
 nnoremap <leader><leader> <C-^>
 
-nnoremap ~~ ~l
-nnoremap ~l ~~
-
 nnoremap U :redo<CR>
 
 nnoremap <Leader><Tab> wby0o<esc>pVr<space>J
+
+" commentary
+xmap <Leader>c <Plug>Commentary
+nmap <Leader>c <Plug>Commentary
+nmap <Leader>cc <Plug>CommentaryLine
 
 
 
@@ -286,6 +289,9 @@ nnoremap <leader>l :set list!<CR>
 
 " remove highlight
 nnoremap <C-l> :nohlsearch<CR><C-l>
+
+"open last search in quickfix list
+nnoremap <silent> <Leader>/ :exec 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
 
 "write as sudo
 cmap w!! %!sudo tee > /dev/null %
